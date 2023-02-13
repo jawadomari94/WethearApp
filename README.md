@@ -1,3 +1,3 @@
 # WethearApp
 Weather Application
-## weather app bu php 
+## weather app by php 
