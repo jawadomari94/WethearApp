@@ -1,32 +1,31 @@
 <?php 
 
+$fullWeather = " ";
+
+if(isset($_POST['submit'])) {
+
+   if(empty($_POST['city'])) {
+
+      echo "write a city name";
+
+   } else {
+
+    $city = $_POST['city'];
+
+    $data = file_get_contents("https://api.openweathermap.org/data/2.5/weather?q=".$city."&appid=92ba25267346dac4a6ea189bb2416d50");
+
+   // print_r($data);
+
+   $weather = json_decode($data, true);
+   //print_r($weather['timezone']);
+
+   $temptocel = intval($weather['main']['temp'] - 273);
+
+   $fullWeather = "The weather in ".$city." is " .$weather['weather'][0]['main']." and tempreture is ".$temptocel;
 
 
-    $fullWeather = '';
-
-    if(isset($_POST['submit'])) {
-
-        if($_POST['city'] == '') {
-
-            echo "empty input, write a city name";
-        } else {
-
-            $city = $_POST['city'];
-
-
-            $data = file_get_contents("https://api.openweathermap.org/data/2.5/weather?q=".$city."&appid=cbe439ed5d7e9fd4dee89b0183fa437d");
-
-
-            $weather = json_decode($data, true);
-
-            // print_r($weather['cod']);
-
-            $tempInCel = intval($weather['main']['temp'] - 273);
-
-            $fullWeather = "The weather in ".$city." is ".$weather['weather'][0]['main']." and tempture is ".$tempInCel." C";
-
-        }
-    }
+   }
+}
 
 
 
@@ -68,10 +67,8 @@
                         </div>
                     </form>
                     <?php if($fullWeather) : ?>
-                        <div class="alert alert-success bg-success text-white"><?php echo $fullWeather; ?></div>
+                    <div class = "alert bg-success text-white"><?php echo $fullWeather; ?></div>
                     <?php endif; ?>
-
-                </div>
            </div>
         </div>
 
